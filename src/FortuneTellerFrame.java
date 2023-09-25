@@ -20,17 +20,18 @@ public class FortuneTellerFrame extends JFrame{
     JButton quitBtn;
     String[] fortunes = {"You look upside-down through this thing","I forsee a restaurant disaster","You will forget why you entered a room","I see great success in fishing","You will meet your doppelgaenger","30% chance of scattered showers today","Your sense of smell will reward you","ERROR 404: Lucky number not found","You will close this window","You will read this fortune","History will repeat itself","Someone you know will tell you hello"};
     short i = 12;
+    Toolkit kit;
     public FortuneTellerFrame() {
 
         mainPnl = new JPanel();
-        mainPnl.setLayout(new GridLayout(3,1));
+        mainPnl.setLayout(new BorderLayout());
         ball = new ImageIcon(".\\src\\ball.jpg");
         imageLbl = new JLabel("Fortune Telling",ball,SwingConstants.CENTER);
         mono = new Font(Font.MONOSPACED, Font.PLAIN, 36);
         imageLbl.setFont(mono);
         top = new JPanel();
         top.add(imageLbl);
-        mainPnl.add(top);
+        mainPnl.add(top,BorderLayout.NORTH);
 
 
         serif = new Font(Font.SERIF, Font.PLAIN, 18);
@@ -40,7 +41,7 @@ public class FortuneTellerFrame extends JFrame{
         pane = new JScrollPane(textArea);
         middle = new JPanel();
         middle.add(pane);
-        mainPnl.add(middle);
+        mainPnl.add(middle, BorderLayout.CENTER);
 
         sans = new Font(Font.SANS_SERIF, Font.BOLD, 18);
         readBtn = new JButton("Read my fortune!");
@@ -63,12 +64,19 @@ public class FortuneTellerFrame extends JFrame{
         bottom = new JPanel();
         bottom.add(readBtn);
         bottom.add(quitBtn);
-        mainPnl.add(bottom);
+        mainPnl.add(bottom, BorderLayout.SOUTH);
 
         add(mainPnl);
 
         setTitle("Fortune Teller");
-        setSize(800, 800);
+
+        kit = Toolkit.getDefaultToolkit();
+        Dimension screenSize = kit.getScreenSize();
+        int screenHeight = screenSize.height;
+        int screenWidth = screenSize.width;
+        setSize(3*screenWidth / 4, 3*screenHeight / 4); //0.75 width and height
+        setLocation(screenWidth / 8, screenHeight / 8); //centered when the above is true
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
